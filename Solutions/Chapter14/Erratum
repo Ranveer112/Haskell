@@ -1,0 +1,15 @@
+Note that in Section 14.2, need to parenthesise differently due to the way
+that >>= associates to the right in Hugs0:
+
+readRevWrite' :: IO ()
+readRevWrite' = (getLine >>= apply reverse) >>= putLine
+
+exampleIO1 :: IO ()
+exampleIO1 = while notEOF readRevWrite
+             where 
+	     notEOF    = isEOF >>= apply not
+             readRevWrite = (getLine >>= 
+                             apply reverse)>>= 
+                             putLine
+
+Written 15.7.96

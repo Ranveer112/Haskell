@@ -1,0 +1,54 @@
+Readme file for Huffman coding in Chapter 11
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Note that the code for this chapter is given in logical modules rather than in
+separate sections.
+
+
+Hugs1.01 and Gofer
+^^^^^^^^^^^^^^^^^^
+
+To use the Huffman code modules in Hugs or Gofer type 
+
+	:p Project
+
+to the appropriate interpreter.
+
+Hugs0 (The Yale release of Hugs, June 1996)
+^^^^^
+To load the system type
+
+:l Types.hs CodeTable.hs Frequency.hs Coding.hs MakeTree.hs MakeCode.hs Main.hs
+
+
+Glasgow Haskell
+^^^^^^^^^^^^^^^
+
+Also checked under the Glasgow compiler version 0.19.
+
+Note how there were compiled:
+
+	ghc -c -O <file>.hs
+
+in dependency order, then are linked by
+
+	ghc -o wiggle  -O *.o
+
+
+
+Haskell 1.3
+^^^^^^^^^^^
+
+Note that to conform to Haskell 1.3 certain changes as documented in the
+text need to be made to the import statements. Instead of importing all the
+contents of module Bee by writing
+
+	Bee ..
+
+one writes
+
+	module Bee
+
+and so on.
+
+[See also section entitled Hugs0 above.]

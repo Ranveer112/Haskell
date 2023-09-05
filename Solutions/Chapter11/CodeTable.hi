@@ -1,0 +1,6 @@
+{-# GHC_PRAGMA INTERFACE VERSION 1 #-}
+interface CodeTable where
+import Types(Bit, Tree)
+codeTable :: Tree -> [(Char, [Bit])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ #-}
+

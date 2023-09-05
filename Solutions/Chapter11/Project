@@ -1,0 +1,10 @@
+-- The project file for Huffman coding
+
+  Types.hs
+  MakeTree.hs
+  CodeTable.hs
+  Frequency.hs
+  MakeCode.hs
+  Coding.hs
+  Main.hs
+

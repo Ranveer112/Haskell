@@ -1,0 +1,23 @@
+Notes on Chapter 12 code
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The code in this directory comes in three sorts. Most examples are given in 
+the Hugs/Gofer ADT mechanism, and these are in the files such as
+
+	Section12-13.g
+
+Note that these files are valid for both Hugs1.01 and Hugs0 (June 1996).
+
+An example of the Haskell-style of ADT mechanism is given in 
+
+	Section12-4.hs
+
+Note that this can be used in Hugs0.
+
+Because of the differences in class and module mechanisms between Hugs1.01,
+Hugs0 and Gofer, the examples of Sections 12.9 and 12.10 are in three sorts
+of file:
+
+	<file>.g	Gofer only
+	<file>.hugs	Hugs1.01 only
+	<file>.hugs0	Hugs0 only

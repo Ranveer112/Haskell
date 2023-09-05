@@ -1,0 +1,7 @@
+{-# GHC_PRAGMA INTERFACE VERSION 1 #-}
+interface Types where
+data Bit = L | R
+type HCode = [Bit]
+type Table = [(Char, [Bit])]
+data Tree = Leaf Char Int | Node Int Tree Tree
+

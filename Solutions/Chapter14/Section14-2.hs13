@@ -1,0 +1,115 @@
+--------------------------------------------------------------------------
+--                                                                      --
+--	Section 14.2: Using Monads for I/O				--
+--	Haskell 1.3 and Hugs0 version					--
+--                                                                      --
+--	(c) Simon Thompson, 1995.					--
+--                                                                      --
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+--	To read a line							--
+--		getLine :: IO String					--
+--                                                                      --
+--      To write a string						--
+--		putStr :: String -> IO ()				--
+--									--
+--	The `then' operation						--
+--		(>>=) :: IO t -> (t -> IO u) -> IO u			--
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+--      To write a line                                                 --
+--	That is write a String with a newline appended.			--
+--------------------------------------------------------------------------
+
+putLine :: String -> IO ()
+
+putLine st = putStr (st ++ "\n")
+
+--------------------------------------------------------------------------
+--      Read then write							--
+--------------------------------------------------------------------------
+
+readWrite :: IO ()
+readWrite = getLine >>= putLine
+
+--------------------------------------------------------------------------
+--      Read, reverse then write					--
+--------------------------------------------------------------------------
+
+readRevWrite :: IO ()
+readRevWrite = getLine >>= \st -> putLine (reverse st)
+
+--------------------------------------------------------------------------
+--      Return a value without doing any IO				--
+--		return :: t -> IO t					--
+--									--
+--	Sequence without passing values between				--
+--		(>>) :: IO t -> IO u -> IO u				--
+--		f >> g = f >>= const g					--
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+--      Apply a function and return its result				--
+--------------------------------------------------------------------------
+
+apply :: (t -> u) -> t -> IO u
+apply f a = return (f a)
+
+--------------------------------------------------------------------------
+--	Read, reverse then write (revisited)				--
+--------------------------------------------------------------------------
+
+readRevWrite' :: IO ()
+readRevWrite' = (getLine >>= apply reverse) >>= putLine
+
+--------------------------------------------------------------------------
+--      Making a String transformer into an interaction.		--
+--		interact :: (String -> String) -> IO ()			--
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+--      Iteration							--
+--------------------------------------------------------------------------
+
+while :: IO Bool -> IO () -> IO ()
+
+while test oper
+  = loop
+    where
+    loop = test >>= \res ->
+           if res then (oper >> loop)
+                  else return ()
+
+--------------------------------------------------------------------------
+--      Testing for the end of input					--
+--		isEOF :: IO Bool					--
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+--	Copy lines until end of file.					--
+--------------------------------------------------------------------------
+
+exampleIO :: IO ()
+exampleIO = while (isEOF >>= apply not) 
+                  (getLine >>= putLine)
+
+exampleIO' :: IO ()
+exampleIO' = while notEOF readWrite
+             where
+             notEOF    = isEOF >>= apply not
+             readWrite = getLine >>= putLine
+
+--------------------------------------------------------------------------
+--	Copy and reverse lines until end of file.			--
+--------------------------------------------------------------------------
+
+exampleIO1 :: IO ()
+exampleIO1 = while notEOF readRevWrite
+             where 
+	     notEOF    = isEOF >>= apply not
+             readRevWrite = (getLine >>= 
+                             apply reverse)>>= 
+                             putLine

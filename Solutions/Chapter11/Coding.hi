@@ -1,0 +1,8 @@
+{-# GHC_PRAGMA INTERFACE VERSION 1 #-}
+interface Coding where
+import Types(Bit, Tree)
+codeMessage :: [(Char, [Bit])] -> [Char] -> [Bit]
+	{-# GHC_PRAGMA _A_ 1 _U_ 21 _N_ _N_ _N_ #-}
+decodeMessage :: Tree -> [Bit] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 22 _S_ "S" _N_ _N_ #-}
+
